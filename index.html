@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณไฟแนนซ์รถยนต์</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🚗 คำนวณไฟแนนซ์รถยนต์</h1>
+
+        <div class="calculator">
+            <div class="input-group">
+                <div class="search-header">
+                    <label for="carSearch">ค้นหารุ่นรถ</label>
+                    <button type="button" class="expand-btn" id="expandBtn" onclick="toggleSearchPanel()">▼</button>
+                </div>
+                <div id="searchPanel" class="search-panel hidden">
+                    <div class="search-container">
+                        <input type="text" id="carSearch" placeholder="ค้นหา เช่น Honda Civic, Toyota Camry">
+                        <button type="button" class="search-btn" onclick="searchCar()">🔍 ค้นหา</button>
+                    </div>
+                    <div id="carResults" class="car-results hidden"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="carModel">รุ่นรถ</label>
+                <input type="text" id="carModel" placeholder="เลือกรถจากผลการค้นหา หรือพิมพ์เอง">
+            </div>
+
+            <div class="input-group">
+                <label for="carPrice">ราคารถ (บาท)</label>
+                <input type="number" id="carPrice" placeholder="500000" min="0" step="1000">
+            </div>
+
+            <div class="input-group">
+                <div class="slider-header">
+                    <label>เงินดาวน์</label>
+                    <div class="slider-value-display">
+                        <span id="downPaymentValue" class="percentage">20</span>%
+                        <span class="divider">|</span>
+                        <span id="downPaymentBahtDisplay" class="baht">0</span>
+                    </div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" id="downPaymentSlider" min="0" max="50" value="20" step="1"
+                        oninput="updateDownPaymentFromSlider()" class="slider">
+                    <div class="slider-track"></div>
+                </div>
+                <div class="slider-labels">
+                    <span>0%</span>
+                    <span>25%</span>
+                    <span>50%</span>
+                </div>
+                <input type="number" id="downPaymentInput" placeholder="หรือพิมพ์จำนวนเงิน (บาท)" min="0" step="1000"
+                    oninput="updateDownPaymentFromInput()" class="down-payment-input">
+            </div>
+
+            <div class="input-group">
+                <div class="slider-header">
+                    <label>อัตราดอกเบี้ย (% ต่อปี)</label>
+                    <div class="slider-value-display">
+                        <span id="interestRateValue" class="percentage">5.50</span>%
+                    </div>
+                </div>
+                <div class="slider-wrapper">
+                    <input type="range" id="interestRateSlider" min="0" max="15" value="5.5" step="0.01"
+                        oninput="updateInterestRateFromSlider()" class="slider">
+                    <div class="slider-track"></div>
+                </div>
+                <div class="slider-labels">
+                    <span>0%</span>
+                    <span>7.5%</span>
+                    <span>15%</span>
+                </div>
+                <input type="number" id="interestRate" placeholder="หรือพิมพ์อัตราดอกเบี้ย" min="0" max="100"
+                    step="0.01" oninput="updateInterestRateFromInput()" class="down-payment-input">
+            </div>
+
+            <div class="input-group">
+                <label>ระยะเวลาผ่อน (เดือน)</label>
+                <div class="loan-term-buttons">
+                    <button type="button" class="term-btn active" onclick="selectLoanTerm(36)">36</button>
+                    <button type="button" class="term-btn" onclick="selectLoanTerm(48)">48</button>
+                    <button type="button" class="term-btn" onclick="selectLoanTerm(60)">60</button>
+                    <button type="button" class="term-btn" onclick="selectLoanTerm(72)">72</button>
+                    <button type="button" class="term-btn" onclick="selectLoanTerm(84)">84</button>
+                    <button type="button" class="term-btn" onclick="selectLoanTerm(96)">96</button>
+                </div>
+                <input type="hidden" id="loanTerm" value="36">
+                <div class="term-display">
+                    <span id="loanTermDisplay">36 เดือน (3 ปี)</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="calculateBtn" onclick="calculateLoan()">คำนวณ</button>
+                <button id="resetBtn" onclick="resetForm()" class="reset-btn">🔄 Reset</button>
+            </div>
+
+            <div id="results" class="results hidden">
+                <h2>ผลการคำนวณ</h2>
+
+                <div class="result-section">
+                    <h3>📋 รายละเอียดรถยนต์</h3>
+                    <div class="result-item">
+                        <span class="label">รุ่นรถ:</span>
+                        <span class="value" id="resultCarModel">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">ราคารถ:</span>
+                        <span class="value" id="resultCarPrice">0</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>💰 เงื่อนไขการผ่อน</h3>
+                    <div class="result-item">
+                        <span class="label">อัตราดอกเบี้ย:</span>
+                        <span class="value" id="resultInterestRate">0%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">ระยะเวลาผ่อน:</span>
+                        <span class="value" id="resultLoanTerm">0 ปี</span>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h3>📊 ผลการคำนวณ</h3>
+                    <div class="result-item">
+                        <span class="label">ยอดจัดไฟแนนซ์:</span>
+                        <span class="value" id="loanAmount">0</span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span class="label">ค่างวดต่อเดือน:</span>
+                        <span class="value" id="monthlyPayment">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">ดอกเบี้ยรวม:</span>
+                        <span class="value" id="totalInterest">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">ยอดชำระทั้งหมด:</span>
+                        <span class="value" id="totalPayment">0</span>
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button type="button" class="share-btn" onclick="shareResult()">� แชร์</abutton>
+                        <button type="button" class="share-btn" onclick="copyToClipboard()">� คัดลอกo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
