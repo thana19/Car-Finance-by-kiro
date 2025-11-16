@@ -339,8 +339,8 @@ function calculateLoan() {
     // คำนวณอัตราดอกเบี้ยต่อเดือน
     const monthlyRate = interestRate / 100 / 12;
 
-    // จำนวนงวดทั้งหมด
-    const numberOfPayments = loanTerm * 12;
+    // จำนวนงวดทั้งหมด (loanTerm เป็นเดือน)
+    const numberOfPayments = parseInt(loanTerm);
 
     // คำนวณค่างวดต่อเดือน (ใช้สูตร PMT)
     const monthlyPayment = loanAmount * 
@@ -356,13 +356,16 @@ function calculateLoan() {
     // รับค่าข้อมูลเพิ่มเติม
     const carModel = document.getElementById('carModel').value || 'ไม่ระบุ';
 
+    // คำนวณปีจากเดือน
+    const years = numberOfPayments / 12;
+
     // แสดงผล - รายละเอียดรถยนต์
     document.getElementById('resultCarModel').textContent = carModel;
     document.getElementById('resultCarPrice').textContent = formatCurrency(carPrice);
 
     // แสดงผล - เงื่อนไขการผ่อน
     document.getElementById('resultInterestRate').textContent = interestRate.toFixed(2) + '%';
-    document.getElementById('resultLoanTerm').textContent = loanTerm + ' ปี (' + numberOfPayments + ' เดือน)';
+    document.getElementById('resultLoanTerm').textContent = numberOfPayments + ' เดือน (' + years + ' ปี)';
 
     // แสดงผล - ผลการคำนวณ
     document.getElementById('loanAmount').textContent = formatCurrency(loanAmount);
