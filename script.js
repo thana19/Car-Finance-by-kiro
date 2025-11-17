@@ -464,8 +464,8 @@ function copyToClipboard() {
     });
 }
 
-// ฟังก์ชัน Reset ฟอร์ม
-function resetForm() {
+// ฟังก์ชัน คำนวณใหม่
+function calculateAgain() {
     // ล้างข้อมูลการค้นหา
     document.getElementById('carSearch').value = '';
     document.getElementById('carModel').value = '';
@@ -475,16 +475,27 @@ function resetForm() {
     document.getElementById('carPrice').value = '';
     
     // รีเซ็ตเงินดาวน์เป็นค่าเริ่มต้น
-    document.getElementById('downPaymentSlider').value = 20;
-    document.getElementById('downPaymentValue').textContent = 20;
+    document.getElementById('downPaymentSlider').value = 25;
+    document.getElementById('downPaymentValue').textContent = 25;
     document.getElementById('downPaymentInput').value = '';
     
-    // ล้างข้อมูลดอกเบี้ยและระยะเวลา
-    document.getElementById('interestRate').value = '';
-    document.getElementById('loanTerm').value = '';
+    // รีเซ็ตดอกเบี้ยเป็นค่าเริ่มต้น
+    document.getElementById('interestRateSlider').value = 1.99;
+    document.getElementById('interestRateValue').textContent = '1.99';
+    document.getElementById('interestRate').value = '1.99';
+    
+    // รีเซ็ตระยะเวลาผ่อนเป็นค่าเริ่มต้น
+    document.getElementById('loanTerm').value = 36;
+    document.getElementById('loanTermDisplay').textContent = '36 เดือน (3 ปี)';
+    document.querySelectorAll('.term-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.term-btn')[0].classList.add('active');
     
     // ซ่อนผลการคำนวณ
     document.getElementById('results').classList.add('hidden');
+    
+    // อัพเดท display
+    updateDownPaymentDisplay();
+    updateInterestRateTrack();
     
     // โฟกัสไปที่ช่องค้นหา
     document.getElementById('carSearch').focus();
@@ -593,3 +604,5 @@ function selectLoanTerm(months) {
     });
     event.target.classList.add('active');
 }
+
+

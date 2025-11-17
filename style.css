@@ -282,11 +282,11 @@ button:active {
     transform: translateY(0);
 }
 
-.reset-btn {
+.calculate-again-btn {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
-.reset-btn:hover {
+.calculate-again-btn:hover {
     box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
 }
 
@@ -384,6 +384,8 @@ button:active {
     color: white;
     border-color: #667eea;
 }
+
+
 
 .search-panel {
     padding: 15px;
