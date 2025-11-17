@@ -41,13 +41,13 @@
                 <div class="slider-header">
                     <label>เงินดาวน์</label>
                     <div class="slider-value-display">
-                        <span id="downPaymentValue" class="percentage">20</span>%
+                        <span id="downPaymentValue" class="percentage">25</span>%
                         <span class="divider">|</span>
                         <span id="downPaymentBahtDisplay" class="baht">0</span>
                     </div>
                 </div>
                 <div class="slider-wrapper">
-                    <input type="range" id="downPaymentSlider" min="0" max="50" value="20" step="1"
+                    <input type="range" id="downPaymentSlider" min="0" max="50" value="25" step="1"
                         oninput="updateDownPaymentFromSlider()" class="slider">
                     <div class="slider-track"></div>
                 </div>
@@ -64,11 +64,11 @@
                 <div class="slider-header">
                     <label>อัตราดอกเบี้ย (% ต่อปี)</label>
                     <div class="slider-value-display">
-                        <span id="interestRateValue" class="percentage">5.50</span>%
+                        <span id="interestRateValue" class="percentage">1.99</span>%
                     </div>
                 </div>
                 <div class="slider-wrapper">
-                    <input type="range" id="interestRateSlider" min="0" max="15" value="5.5" step="0.01"
+                    <input type="range" id="interestRateSlider" min="0" max="15" value="1.99" step="0.01"
                         oninput="updateInterestRateFromSlider()" class="slider">
                     <div class="slider-track"></div>
                 </div>
@@ -78,7 +78,7 @@
                     <span>15%</span>
                 </div>
                 <input type="number" id="interestRate" placeholder="หรือพิมพ์อัตราดอกเบี้ย" min="0" max="100"
-                    step="0.01" oninput="updateInterestRateFromInput()" class="down-payment-input">
+                    step="0.01" value="1.99" oninput="updateInterestRateFromInput()" class="down-payment-input">
             </div>
 
             <div class="input-group">
@@ -98,8 +98,8 @@
             </div>
 
             <div class="button-group">
-                <button id="calculateBtn" onclick="calculateLoan()">คำนวณ</button>
                 <button id="resetBtn" onclick="resetForm()" class="reset-btn">🔄 Reset</button>
+                <button id="calculateBtn" onclick="calculateLoan()">คำนวณ</button>
             </div>
 
             <div id="results" class="results hidden">

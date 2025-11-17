@@ -399,7 +399,10 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 document.getElementById('carPrice').addEventListener('input', updateDownPaymentDisplay);
 
 // เรียกครั้งแรกเพื่อแสดงค่าเริ่มต้น
+document.getElementById('downPaymentSlider').value = 25;
+document.getElementById('downPaymentValue').textContent = 25;
 updateDownPaymentDisplay();
+updateInterestRateTrack();
 
 // ฟังก์ชันแชร์ผลการคำนวณ
 function getShareText() {
