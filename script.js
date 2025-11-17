@@ -368,6 +368,7 @@ function calculateLoan() {
     document.getElementById('resultLoanTerm').textContent = numberOfPayments + ' เดือน (' + years + ' ปี)';
 
     // แสดงผล - ผลการคำนวณ
+    document.getElementById('resultDownPayment').textContent = formatCurrency(downPaymentBaht);
     document.getElementById('loanAmount').textContent = formatCurrency(loanAmount);
     document.getElementById('monthlyPayment').textContent = formatCurrency(monthlyPayment);
     document.getElementById('totalInterest').textContent = formatCurrency(totalInterest);
@@ -408,6 +409,7 @@ updateInterestRateTrack();
 function getShareText() {
     const carModel = document.getElementById('resultCarModel').textContent;
     const carPrice = document.getElementById('resultCarPrice').textContent;
+    const downPayment = document.getElementById('resultDownPayment').textContent;
     const interestRate = document.getElementById('resultInterestRate').textContent;
     const loanTerm = document.getElementById('resultLoanTerm').textContent;
     const monthlyPayment = document.getElementById('monthlyPayment').textContent;
@@ -416,6 +418,7 @@ function getShareText() {
     return `🚗 ผลการคำนวณไฟแนนซ์รถยนต์\n\n` +
            `📋 รุ่นรถ: ${carModel}\n` +
            `💰 ราคารถ: ${carPrice}\n` +
+           `💵 เงินดาวน์: ${downPayment}\n` +
            `📊 อัตราดอกเบี้ย: ${interestRate}\n` +
            `⏱️ ระยะเวลาผ่อน: ${loanTerm}\n\n` +
            `✅ ค่างวดต่อเดือน: ${monthlyPayment}\n` +
